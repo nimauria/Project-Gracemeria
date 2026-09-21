@@ -16,15 +16,37 @@ int main() {
   supported.media_id = 0x531C30BEu;
   assert(provider.provide(supported, hint_set, error));
   assert(error.empty());
+
   // These come from the real, on-disk revisions/usa-retail-tu0/analysis/
-  // hints.v2.json - loaded, not hand-duplicated in this provider (see
-  // hint_provider.hpp/.cpp) - so this also proves the provider stays in
-  // sync with whatever migrate-ac6-recomp actually produced, including the
-  // 34 midasm hooks a smaller hand-maintained subset previously dropped.
+  // files - loaded, not hand-duplicated in this provider. hints.v2.json owns
+  // the schema-native hooks/replacements/helpers and legacy-symbols.csv owns
+  // the already-migrated AC6_recomp function-start table.
   assert(hint_set.native_replacements.size() == 16);
   assert(hint_set.runtime_helpers.size() == 2);
   assert(hint_set.indirect_calls.size() == 2);
   assert(hint_set.hooks.size() == 34);
+
+  // Real-XEX validation showed Xenon's automatic discovery alone found only a
+  // tiny subset of AC6. The revision profile therefore activates all 10,527
+  // known AC6_recomp starts as FunctionHints.
+  assert(hint_set.functions.size() == 10527);
+
+  bool found_first_known_function = false;
+  bool found_fallback_named_function = false;
+  for (const auto& function : hint_set.functions) {
+    if (function.address == 0x82090000u) {
+      found_first_known_function = true;
+      assert(function.name == "rex_sub_82090000");
+    }
+    // One of the 35 source entries that was written as `0x... = {}`.
+    if (function.address == 0x820F5FB0u) {
+      found_fallback_named_function = true;
+      assert(!function.name.empty());
+    }
+  }
+  assert(found_first_known_function);
+  assert(found_fallback_named_function);
+
   // The provider must stamp the hint set with the EXACT identity it was
   // asked about (see hint_provider.hpp), so Xenon's own
   // hint_set_matches_identity() safety check passes.
@@ -58,6 +80,7 @@ int main() {
   {
     const auto temp_root = std::filesystem::temp_directory_path() /
                             "gracemeria_hint_provider_tests_empty_root";
+    std::filesystem::remove_all(temp_root);
     std::filesystem::create_directories(temp_root);
     gracemeria::Ac6HintProvider missing_data_provider(temp_root);
     xenon::recomp::analysis::AnalysisHintSetV2 empty_hint_set;
@@ -68,11 +91,13 @@ int main() {
   }
 
   // A structurally malformed hints.v2.json is reported, never partially
-  // applied.
+  // applied. Use the actual revision directory name so this test exercises
+  // malformed JSON rather than merely a missing directory.
   {
     const auto temp_root = std::filesystem::temp_directory_path() /
                             "gracemeria_hint_provider_tests_malformed_root";
-    const auto analysis_dir = temp_root / "ac6-us-retail-531c30be-tu0" / "analysis";
+    std::filesystem::remove_all(temp_root);
+    const auto analysis_dir = temp_root / "usa-retail-tu0" / "analysis";
     std::filesystem::create_directories(analysis_dir);
     {
       std::ofstream out(analysis_dir / "hints.v2.json");

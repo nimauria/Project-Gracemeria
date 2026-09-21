@@ -35,13 +35,19 @@ struct RevisionMatch {
 // this provider's own matching policy is what actually decides eligibility,
 // not a bypass of that check.
 //
-// Loads its hint data from `<revisions_root>/<revision_id>/analysis/
-// hints.v2.json` (xenon::recomp::analysis::from_json) rather than duplicating
-// it as hand-maintained C++ literals - that file is the same
-// migrate-ac6-recomp output docs/AC6_RECOMP_AUDIT.md describes (all 34
-// midasm hooks included), so there is exactly one place this data can drift.
-// A missing/malformed/schema-invalid file is a hard provide() failure, never
-// a silent fallback to a smaller built-in subset.
+// Loads its schema-native hint data from
+// `<revisions_root>/<revision_id>/analysis/hints.v2.json` and supplements the
+// active FunctionHint list from the already-migrated
+// `legacy-symbols.csv` beside it. AC6_recomp contains 10,527 known function
+// starts and current Xenon automatic discovery does not yet recover enough of
+// them from this retail XEX on its own, so these revision-scoped starts are
+// authoritative analysis hints rather than reference-only documentation.
+//
+// The CSV is still kept separate from hints.v2.json so the hand-auditable
+// migration data remains compact and so a future Xenon analysis pass can
+// reduce/remove redundant starts without rewriting the generic schema file.
+// A missing/malformed/schema-invalid JSON or CSV file is a hard provide()
+// failure, never a silent fallback to a smaller hint set.
 class Ac6HintProvider final : public xenon::recomp::ModuleHintProviderV2 {
  public:
   // `revisions_root` defaults to this source tree's own revisions/
