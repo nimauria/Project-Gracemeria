@@ -1,0 +1,293 @@
+{
+  "chunks": [],
+  "functions": [],
+  "hooks": [
+    {
+      "address": 2183064548,
+      "description": "midasm_hook jump_address_on_true=0x821eebec",
+      "nativeReplacementIdentity": "ac6FlipIntervalHook"
+    },
+    {
+      "address": 2183068984,
+      "description": "midasm_hook registers=[r29]",
+      "nativeReplacementIdentity": "ac6DeltaDivisorHook"
+    },
+    {
+      "address": 2183069044,
+      "description": "midasm_hook registers=[r8,r10,r29,r30]",
+      "nativeReplacementIdentity": "ac6DeltaPrecisionHook"
+    },
+    {
+      "address": 2184204096,
+      "description": "midasm_hook registers=[f9]",
+      "nativeReplacementIdentity": "ac6PathDropHook"
+    },
+    {
+      "address": 2183071224,
+      "description": "midasm_hook registers=[r31]",
+      "nativeReplacementIdentity": "ac6PresentTimingHook"
+    },
+    {
+      "address": 2183069488,
+      "description": "midasm_hook registers=[r10] jump_address_on_true=0x821eff74",
+      "nativeReplacementIdentity": "ac6PresentIntervalHook"
+    },
+    {
+      "address": 2182628448,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6CinematicTickHook"
+    },
+    {
+      "address": 2182633208,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6CinematicTickHook"
+    },
+    {
+      "address": 2184461944,
+      "description": "midasm_hook registers=[r28,ctr]",
+      "nativeReplacementIdentity": "ac6PacWorkerDispatchHook"
+    },
+    {
+      "address": 2184468064,
+      "description": "midasm_hook registers=[r3,r4,r5,r6,ctr]",
+      "nativeReplacementIdentity": "ac6PacWorkerL2DispatchHook"
+    },
+    {
+      "address": 2184468352,
+      "description": "midasm_hook registers=[r3,r4,r5,r6,ctr]",
+      "nativeReplacementIdentity": "ac6PacWorkerL2DispatchHook"
+    },
+    {
+      "address": 2184468676,
+      "description": "midasm_hook registers=[r3,r4,r5,r6,ctr]",
+      "nativeReplacementIdentity": "ac6PacWorkerL2DispatchHook"
+    },
+    {
+      "address": 2184469072,
+      "description": "midasm_hook registers=[r3,r4,r5,r6,ctr]",
+      "nativeReplacementIdentity": "ac6PacWorkerL2DispatchHook"
+    },
+    {
+      "address": 2184469360,
+      "description": "midasm_hook registers=[r3,r4,r5,r6,ctr]",
+      "nativeReplacementIdentity": "ac6PacWorkerL2DispatchHook"
+    },
+    {
+      "address": 2182925404,
+      "description": "midasm_hook registers=[r4,r10,r11,r31]",
+      "nativeReplacementIdentity": "ac6PacDecoderDumpHook"
+    },
+    {
+      "address": 2183984400,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6PacCodecDispatchProbe"
+    },
+    {
+      "address": 2183983864,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6PacMode1EntryProbe"
+    },
+    {
+      "address": 2183973712,
+      "description": "midasm_hook registers=[r3,r4,r5]",
+      "nativeReplacementIdentity": "ac6PacBitFetcherProbe"
+    },
+    {
+      "address": 2183981760,
+      "description": "midasm_hook registers=[r3,r4]",
+      "nativeReplacementIdentity": "ac6PacDynamicHeaderProbe"
+    },
+    {
+      "address": 2183977784,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6PacTreeBuilderProbe"
+    },
+    {
+      "address": 2183975016,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6PacBlockConsumerProbe"
+    },
+    {
+      "address": 2183976792,
+      "description": "midasm_hook registers=[r3]",
+      "nativeReplacementIdentity": "ac6PacBlockConsumerProbe"
+    },
+    {
+      "address": 2182954124,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp2"
+    },
+    {
+      "address": 2182954252,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp3"
+    },
+    {
+      "address": 2182954440,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp6"
+    },
+    {
+      "address": 2182954584,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp7"
+    },
+    {
+      "address": 2182954864,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOpA"
+    },
+    {
+      "address": 2182955056,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOpB"
+    },
+    {
+      "address": 2182955248,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOpC"
+    },
+    {
+      "address": 2182903096,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOpD"
+    },
+    {
+      "address": 2182909636,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp8"
+    },
+    {
+      "address": 2182909816,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp9"
+    },
+    {
+      "address": 2182910616,
+      "description": "midasm_hook registers=[r5]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookOp10"
+    },
+    {
+      "address": 2182896248,
+      "description": "midasm_hook registers=[r5,r29]",
+      "nativeReplacementIdentity": "ac6StorageOrderHookVar"
+    }
+  ],
+  "identity": {
+    "baseVersion": 0,
+    "effectiveImageHash": "0000000000000000000000000000000000000000",
+    "effectiveVersion": 0,
+    "mediaId": 0,
+    "titleId": 0,
+    "titleUpdateApplied": false
+  },
+  "indirectBranches": [],
+  "indirectCalls": [
+    {
+      "callsite": 2184692584,
+      "targets": []
+    },
+    {
+      "callsite": 2184690248,
+      "targets": []
+    }
+  ],
+  "moduleName": "ProjectGracemeria",
+  "nativeReplacements": [
+    {
+      "guestAddress": 2183110160,
+      "kind": "HeapAllocate",
+      "sourceName": "RtlAllocateHeap"
+    },
+    {
+      "guestAddress": 2183112440,
+      "kind": "HeapFree",
+      "sourceName": "RtlFreeHeap"
+    },
+    {
+      "guestAddress": 2183106728,
+      "kind": "HeapSize",
+      "sourceName": "RtlSizeHeap"
+    },
+    {
+      "guestAddress": 2183113184,
+      "kind": "HeapReAllocate",
+      "sourceName": "RtlReAllocateHeap"
+    },
+    {
+      "guestAddress": 2184720152,
+      "kind": "Memcpy",
+      "sourceName": "memcpy"
+    },
+    {
+      "guestAddress": 2184722544,
+      "kind": "Memmove",
+      "sourceName": "memmove"
+    },
+    {
+      "guestAddress": 2184720624,
+      "kind": "Memset",
+      "sourceName": "memset"
+    },
+    {
+      "guestAddress": 2184718992,
+      "kind": "Unsupported",
+      "sourceName": "XMemCpy"
+    },
+    {
+      "guestAddress": 2184722736,
+      "kind": "Strncmp",
+      "sourceName": "strncmp"
+    },
+    {
+      "guestAddress": 2184717168,
+      "kind": "Strncpy",
+      "sourceName": "strncpy"
+    },
+    {
+      "guestAddress": 2184716688,
+      "kind": "Strchr",
+      "sourceName": "strchr"
+    },
+    {
+      "guestAddress": 2184717600,
+      "kind": "Strstr",
+      "sourceName": "strstr"
+    },
+    {
+      "guestAddress": 2184767504,
+      "kind": "Strrchr",
+      "sourceName": "strrchr"
+    },
+    {
+      "guestAddress": 2184716752,
+      "kind": "StrcpyChecked",
+      "sourceName": "strcpy_s"
+    },
+    {
+      "guestAddress": 2184715744,
+      "kind": "MemcpyChecked",
+      "sourceName": "memcpy_s"
+    },
+    {
+      "guestAddress": 2184710640,
+      "kind": "MemmoveChecked",
+      "sourceName": "memmove_s"
+    }
+  ],
+  "patches": [],
+  "regions": [],
+  "runtimeHelpers": [
+    {
+      "address": 2185012880,
+      "kind": "LongJmp"
+    },
+    {
+      "address": 2185013680,
+      "kind": "SetJmp"
+    }
+  ],
+  "schemaVersion": 2,
+  "switches": [],
+  "symbols": []
+}

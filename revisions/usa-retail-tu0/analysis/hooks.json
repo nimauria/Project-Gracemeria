@@ -1,0 +1,411 @@
+{
+  "schema": "project-gracemeria.hook-classification",
+  "version": 1,
+  "revision": "ac6-us-retail-531c30be-tu0",
+  "baselinePolicy": "No ReXGlue midasm hook is injected into Xenon by default. Baseline correctness uses Xenon systems and official title updates. Optional AC6 enhancements are retained as research metadata until Xenon exposes a production title-hook contract.",
+  "hooks": [
+    {
+      "address": 2183064548,
+      "name": "ac6FlipIntervalHook",
+      "registers": [],
+      "jumpAddressOnTrue": 2183064556,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Frame pacing/60 FPS behavior from AC6_recomp; requires a stable Xenon title-hook ABI before reimplementation"
+    },
+    {
+      "address": 2183068984,
+      "name": "ac6DeltaDivisorHook",
+      "registers": [
+        "r29"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Frame pacing/60 FPS behavior from AC6_recomp; requires a stable Xenon title-hook ABI before reimplementation"
+    },
+    {
+      "address": 2183069044,
+      "name": "ac6DeltaPrecisionHook",
+      "registers": [
+        "r8",
+        "r10",
+        "r29",
+        "r30"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Frame pacing/60 FPS behavior from AC6_recomp; requires a stable Xenon title-hook ABI before reimplementation"
+    },
+    {
+      "address": 2184204096,
+      "name": "ac6PathDropHook",
+      "registers": [
+        "f9"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "compatibility-review",
+      "enabled": false,
+      "rationale": "Path-drop behavior requires real-title validation against Xenon filesystem before any patch is enabled"
+    },
+    {
+      "address": 2183071224,
+      "name": "ac6PresentTimingHook",
+      "registers": [
+        "r31"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Frame pacing/60 FPS behavior from AC6_recomp; requires a stable Xenon title-hook ABI before reimplementation"
+    },
+    {
+      "address": 2183069488,
+      "name": "ac6PresentIntervalHook",
+      "registers": [
+        "r10"
+      ],
+      "jumpAddressOnTrue": 2183069556,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Frame pacing/60 FPS behavior from AC6_recomp; requires a stable Xenon title-hook ABI before reimplementation"
+    },
+    {
+      "address": 2182628448,
+      "name": "ac6CinematicTickHook",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Cutscene audio-master resync; ReXGlue implementation depends on its audio/timing plumbing"
+    },
+    {
+      "address": 2182633208,
+      "name": "ac6CinematicTickHook",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "optional-enhancement",
+      "enabled": false,
+      "rationale": "Cutscene audio-master resync; ReXGlue implementation depends on its audio/timing plumbing"
+    },
+    {
+      "address": 2184461944,
+      "name": "ac6PacWorkerDispatchHook",
+      "registers": [
+        "r28",
+        "ctr"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2184468064,
+      "name": "ac6PacWorkerL2DispatchHook",
+      "registers": [
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "ctr"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2184468352,
+      "name": "ac6PacWorkerL2DispatchHook",
+      "registers": [
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "ctr"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2184468676,
+      "name": "ac6PacWorkerL2DispatchHook",
+      "registers": [
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "ctr"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2184469072,
+      "name": "ac6PacWorkerL2DispatchHook",
+      "registers": [
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "ctr"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2184469360,
+      "name": "ac6PacWorkerL2DispatchHook",
+      "registers": [
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "ctr"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2182925404,
+      "name": "ac6PacDecoderDumpHook",
+      "registers": [
+        "r4",
+        "r10",
+        "r11",
+        "r31"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183984400,
+      "name": "ac6PacCodecDispatchProbe",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183983864,
+      "name": "ac6PacMode1EntryProbe",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183973712,
+      "name": "ac6PacBitFetcherProbe",
+      "registers": [
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183981760,
+      "name": "ac6PacDynamicHeaderProbe",
+      "registers": [
+        "r3",
+        "r4"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183977784,
+      "name": "ac6PacTreeBuilderProbe",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183975016,
+      "name": "ac6PacBlockConsumerProbe",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2183976792,
+      "name": "ac6PacBlockConsumerProbe",
+      "registers": [
+        "r3"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "research-only",
+      "enabled": false,
+      "rationale": "PAC reverse-engineering probe/dump; not production behavior"
+    },
+    {
+      "address": 2182954124,
+      "name": "ac6StorageOrderHookOp2",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182954252,
+      "name": "ac6StorageOrderHookOp3",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182954440,
+      "name": "ac6StorageOrderHookOp6",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182954584,
+      "name": "ac6StorageOrderHookOp7",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182954864,
+      "name": "ac6StorageOrderHookOpA",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182955056,
+      "name": "ac6StorageOrderHookOpB",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182955248,
+      "name": "ac6StorageOrderHookOpC",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182903096,
+      "name": "ac6StorageOrderHookOpD",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182909636,
+      "name": "ac6StorageOrderHookOp8",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182909816,
+      "name": "ac6StorageOrderHookOp9",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182910616,
+      "name": "ac6StorageOrderHookOp10",
+      "registers": [
+        "r5"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    },
+    {
+      "address": 2182896248,
+      "name": "ac6StorageOrderHookVar",
+      "registers": [
+        "r5",
+        "r29"
+      ],
+      "jumpAddressOnTrue": null,
+      "classification": "obsolete-on-supported-title-update",
+      "enabled": false,
+      "rationale": "Retail title update performs the ordering fix; do not permanently patch around Xenon title-update handling"
+    }
+  ]
+}

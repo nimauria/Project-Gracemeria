@@ -1,136 +1,122 @@
 # Project Gracemeria
 
-Project Gracemeria is a native recompilation project for **Ace Combat 6: Fires of Liberation**, targeting modern operating systems and hardware.
+Project Gracemeria is the **Ace Combat 6: Fires of Liberation** game module for **Project Xenon**.
 
-The project is intended to replace as much Xbox 360-specific runtime behaviour as practical with native host implementations, including native graphics rendering rather than relying on a full Xbox 360 GPU emulator.
-
-Project Gracemeria is built on top of a separate modular Xbox 360 recompilation runtime so that shared functionality can eventually be reused by other Xbox 360 recompilation projects.
-
-## Current Status
-
-Project Gracemeria is currently in very early development.
-
-At this stage, the project is focused on:
-
-- Defining the overall architecture.
-- Supporting both the NTSC-U and PAL releases of Ace Combat 6.
-- Designing a modular recompilation/runtime interface.
-- Establishing native rendering infrastructure.
-- Supporting original game content, title updates, and DLC.
-- Providing an explicit offline mode while online functionality is not yet implemented.
-
-The project is not currently playable.
-
-## Planned Platforms
-
-The long-term target platforms are:
-
-- Windows x86-64
-- Windows ARM64
-- Linux x86-64
-- Linux ARM64
-- Android ARM64
-
-Android support is planned and should be considered experimental until the core desktop versions are functional.
-
-## Graphics
-
-The project is designed around native GPU rendering.
-
-The primary planned graphics backend is:
-
-- Vulkan
-
-Additional backends may be added where useful, including:
-
-- Direct3D 12 on Windows
-
-The renderer will be designed specifically around the behaviour required by Ace Combat 6 rather than implementing a complete Xbox 360 GPU emulator.
-
-## Supported Game Versions
-
-Planned support includes:
-
-- Ace Combat 6 NTSC-U / North American release
-- Ace Combat 6 PAL / European release
-
-Version-specific executable information, symbols, patches, and signatures will be kept separate from shared game logic.
-
-Region-specific addresses should not be hardcoded throughout the main codebase.
-
-## DLC and Game Content
-
-Project Gracemeria is intended to support:
-
-- Base game content
-- Title updates
-- Downloadable content
-- Additional aircraft
-- Aircraft skins
-- DLC missions
-- Other supported original game content
-
-The project will not distribute copyrighted game assets.
-
-Users will be required to provide their own legally obtained game files and downloadable content.
-
-## Networking
-
-Xbox Live functionality will initially operate in an explicit offline mode.
-
-The initial implementation is expected to provide local functionality where required by the game while disabling unsupported online services such as:
-
-- Matchmaking
-- Multiplayer sessions
-- Friends
-- Presence
-- Online authentication
-
-The project is being designed so that these services can later be connected to a native replacement networking system without requiring major changes to the game-specific code.
+It is not an Xbox 360 runtime and does not contain a second CPU, memory system, kernel, XAM implementation, filesystem, audio stack, input stack, content system or Xenos renderer. Those belong to Xenon. Gracemeria supplies only title-specific information needed to identify, analyse and recompile Ace Combat 6, plus AC6-specific compatibility knowledge that remains valid on Xenon's runtime.
 
 ## Architecture
 
-Project Gracemeria is intended to contain only Ace Combat 6-specific functionality.
-
-Shared Xbox 360 recompilation functionality belongs in the generic runtime project.
-
-The intended dependency direction is:
-
+```text
+user-owned Ace Combat 6 content
+        |
+        v
 Project Gracemeria
+  - revision identity
+  - analysis hints / symbols
+  - AC6 compatibility metadata
+  - optional enhancement research
         |
         v
-Generic Xbox 360 Recompilation Runtime
+Project Xenon
+  XEX Loader V2 -> Recomp Driver / CPU V2 -> xenon_game_module
+  Memory V2 / Kernel / XAM / Filesystem / Content / Input / Audio / Xenos GPU
         |
         v
-Platform / CPU / Graphics Backends
+XenonRuntime / XenonSession
+```
 
-The generic runtime must not depend on Project Gracemeria.
+The generated native library uses Xenon's canonical `Xenon_BindCompiledRegistry` ABI. Gracemeria does not invent a title-specific loader.
 
-## Development Philosophy
+## Current source status
 
-The project aims to remain highly modular.
+The old Project Gracemeria subsystem skeleton has been removed. The current repository is a Xenon module/tooling repository.
 
-Major systems should be isolated behind clear interfaces, including:
+The migrated AC6_recomp reference is explicitly US-only. The fixed-address profile in `revisions/usa-retail-tu0/` is therefore scoped to:
 
-- CPU recompilation
-- Graphics
-- Filesystem
-- Audio
-- Input
-- Xbox services
-- Networking
-- Game version support
-- DLC handling
-- Platform-specific functionality
+- Title ID `4E4D07D1`
+- Media ID `531C30BE`
+- Disc 1
+- base executable / TU0 research profile
 
-Platform-specific behaviour should remain isolated from shared game code wherever possible.
+The exact effective-XEX SHA-1 and XEX version are intentionally not invented. They are the remaining identity fields to record from the user's legally supplied executable during real-title validation. PAL revisions remain planned, but **US addresses are never applied to them**.
+
+## What was migrated from AC6_recomp
+
+`ac6recomp_config.toml` was audited in full. The supplied file contains 10,527 function records, two known indirect-call sites, 16 ReXCRT/native helper candidates, setjmp/longjmp addresses and 34 midasm hooks.
+
+The active Xenon hint set is deliberately much smaller than the legacy table. Xenon automatic discovery owns ordinary function boundaries. The full legacy symbol map is retained as `analysis/legacy-symbols.csv`, and `tools/reduce_legacy_hints.py` can compare it with a real Xenon analysis report to keep only starts that Xenon actually misses.
+
+ReXGlue runtime plumbing, the vendored ReXGlue/Xenia renderer, duplicate Xbox services and backend-specific D3D hooks are not part of Gracemeria. See `docs/AC6_RECOMP_AUDIT.md`.
+
+## Build the migration tools
+
+Requirements: CMake 3.25+, a C++20 compiler, Ninja (recommended), Python 3 for metadata tests, and the current Xenon source tree.
+
+```bash
+cmake -S . -B build/dev -G Ninja \
+  -DXENON_RECOMP_ROOT=/path/to/Xenon-Recomp \
+  -DGRACEMERIA_BUILD_TESTS=ON
+cmake --build build/dev
+ctest --test-dir build/dev --output-on-failure
+```
+
+### Generate AC6 native code
+
+With a legally supplied supported `default.xex`:
+
+```bash
+./build/dev/gracemeria-recomp /path/to/default.xex generated/ac6-us
+```
+
+Xenon's Recomp Driver now accepts title-update input through the same XEX Loader V2 path used by the runtime. Gracemeria deliberately rejects an effective title-update image until that update has its own verified revision profile; this prevents TU0 addresses from leaking onto a patched executable. Once a profile is verified, generation uses:
+
+```bash
+./build/dev/gracemeria-recomp /path/to/default.xex generated/ac6-us-tu \
+  --title-update /path/to/title-update.xexp
+```
+
+Historical public metadata identifies a TU2 for Media ID `531C30BE`, but Gracemeria does not guess its effective XEX version/hash or reuse TU0 addresses. Xenon owns XEXP parsing, validation and effective-image construction.
+
+The generated directory contains Xenon's normal `xenon_game` and `xenon_game_module` targets. Build it with:
+
+```bash
+cmake -S generated/ac6-us -B build/generated/ac6-us \
+  -DXENON_RECOMP_ROOT=/path/to/Xenon-Recomp
+cmake --build build/generated/ac6-us --target xenon_game_module
+```
+
+Then stage an installable module directory with `tools/stage_package.py`.
+
+## Import coverage
+
+After building the tools, run:
+
+```bash
+./build/dev/gracemeria-import-coverage /path/to/default.xex
+```
+
+The report lists every XEX import as `library`, `ordinal`, `name`, and current Xenon status: `registered`, `stub`, or `missing`. It queries Xenon's real `XenonSession`/`ExportRegistry`; Gracemeria does not maintain a duplicate import-status database.
+
+## Title updates and DLC
+
+Xenon owns title updates, STFS packages and mounted content. Gracemeria only declares compatibility/identity metadata. The AC6_recomp storage-submit workaround is not copied as a permanent patch because its own research says the retail title update fixes the ordering; the correct path is to use Xenon's title-update system.
+
+The installed `xenon-module.json` carries the current 65-entry AC6 DLC catalogue so Xenon Launcher can present/import known add-ons through its normal `ModuleService::dlcCatalog()` path. These catalogue records are descriptive only until their STFS headers are verified: `contentIds` remain empty and `identityStatus` remains `pending-stfs-header-verification` rather than inventing package identities.
+
+DLC packages, title updates, disc images and game assets are never distributed here. DLC content IDs are promoted to strict identities only after verification from the user's own legally supplied packages.
+
+## Optional enhancements
+
+AC6_recomp includes useful research for 60 FPS, cutscene resync, widescreen, full-resolution effects, terrain quality and keyboard/mouse. Their current implementations are coupled to ReXGlue/Xenia backend internals, so they are preserved as classified research rather than copied into Xenon's production graphics/input/audio paths. They can be reimplemented later against stable Xenon extension points without creating a second renderer or input system.
+
+## Research and credits
+
+Project Gracemeria benefits from public research and implementation experience from AC6_recomp, ReXGlue, Xenia, XenonRecomp, XenosRecomp, Unleashed Recompiled and the Dead Rising 2 Case Zero/Case West Xenon recompilation projects. `docs/RESEARCH_AND_LICENSES.md` distinguishes reference research from source copied into this repository.
+
+No source code from AC6_recomp/ReXGlue/Xenia was copied into this migration. Address/name metadata from the public AC6 configuration was translated into Gracemeria data files and Xenon's module-hint model.
 
 ## Legal
 
-Project Gracemeria is an unofficial fan-made project.
+Project Gracemeria is an unofficial fan project and is not affiliated with or endorsed by Bandai Namco Entertainment, Project Aces or Microsoft.
 
-It is not affiliated with, endorsed by, or sponsored by Bandai Namco Entertainment, Microsoft, Project Aces, or any related rights holders.
-
-Ace Combat, Ace Combat 6: Fires of Liberation, Xbox, Xbox 360, and related names and assets are trademarks and copyrights of their respective owners.
-
-No copyrighted game data is included in this repository.
+No copyrighted Ace Combat 6 game executable, disc image, assets, DLC, title update, Microsoft keys or firmware are included. Users must supply their own legally obtained content locally.
