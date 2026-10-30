@@ -1,0 +1,36 @@
+build/
+out/
+dist/
+generated/
+.cache/
+CMakeUserPresets.json
+compile_commands.json
+*.xex
+*.xexp
+*.iso
+*.xiso
+*.live
+*.pirs
+*.stfs
+*.bin
+*.key
+*.keys
+assets/
+game-data/
+dlc/
+title-updates/
+private/
+scratch/
+.vs/
+.vscode/
+.idea/
+__pycache__/
+*.py[cod]
+# Local identity captures/hashes derived from user-owned game data.
+revisions/*/local-validation.json
+
+# Generated runtime sessions and local process state.
+/runtime/*/session/
+/runtime/*/*.log
+/runtime/*/*.pid
+/runtime/*/stop.signal
